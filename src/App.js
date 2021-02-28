@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.png";
 import "./App.css";
-import { API } from "aws-amplify";
+import { API, Storage } from "aws-amplify";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { listSongs } from "./graphql/queries";
 import {
@@ -19,17 +19,45 @@ function App() {
     fetchSongs();
   }, []);
 
+  async function onChange(e) {
+    if (!e.target.files[0]) return;
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file.name });
+    await Storage.put(file.name, file);
+    fetchSongs();
+  }
+
   async function fetchSongs() {
     const apiData = await API.graphql({ query: listSongs });
+    const songsFromAPI = apiData.data.listSongs.items;
+    await Promise.all(
+      songsFromAPI.map(async (song) => {
+        if (song.image) {
+          const image = await Storage.get(song.image);
+          song.image = image;
+        }
+        return song;
+      })
+    );
     setSongs(apiData.data.listSongs.items);
   }
 
   async function createSong() {
-    if (!formData.name || !formData.composer || !formData.album || !formData.level) return;
+    if (
+      !formData.name ||
+      !formData.composer ||
+      !formData.album ||
+      !formData.level
+    )
+      return;
     await API.graphql({
       query: createSongMutation,
       variables: { input: formData },
     });
+    if (formData.image) {
+      const image = await Storage.get(formData.image);
+      formData.image = image;
+    }
     setSongs([...songs, formData]);
     setFormData(initialFormState);
   }
@@ -78,12 +106,11 @@ function App() {
           value={formData.album}
         />
         <input
-          onChange={(e) =>
-            setFormData({ ...formData, level: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, level: e.target.value })}
           placeholder="Level"
           value={formData.level}
         />
+        <input type="file" onChange={onChange} />
         <button onClick={createSong}>Add Song</button>
         <div style={{ marginBottom: 30 }}>
           {songs.map((song) => (
@@ -93,6 +120,13 @@ function App() {
               <p>{song.album}</p>
               <p>{song.level}</p>
               <button onClick={() => deleteSong(song)}>Delete song</button>
+              {song.image && (
+                <img
+                  src={song.image}
+                  alt="album_image"
+                  style={{ width: 400 }}
+                />
+              )}
             </div>
           ))}
         </div>
