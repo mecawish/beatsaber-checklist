@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify3d7279c56bd04-staging-65700-authRole",
+      "UnauthRoleArn": "arn:aws:iam::446297395625:role/amplify-amplify3d7279c56bd04-staging-65700-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::446297395625:role/amplify-amplify3d7279c56bd04-staging-65700-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-amplify3d7279c56bd04-staging-65700-deployment",
+      "UnauthRoleName": "amplify-amplify3d7279c56bd04-staging-65700-unauthRole",
+      "StackName": "amplify-amplify3d7279c56bd04-staging-65700",
+      "StackId": "arn:aws:cloudformation:us-east-2:446297395625:stack/amplify-amplify3d7279c56bd04-staging-65700/284b9440-7992-11eb-bb32-0a1c86498a3c",
+      "AmplifyAppId": "d2yjm52hf9nuk2"
+    },
+    "categories": {
+      "auth": {
+        "beatsaberchecklista32de609": {}
+      }
+    }
+  }
+}

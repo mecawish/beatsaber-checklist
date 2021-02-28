@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "beatsaberchecklista32de609": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
