@@ -1,0 +1,7 @@
+type Song @model {
+  id: ID!
+  name: String!
+  composer: String
+  album: String
+  level: String
+}
