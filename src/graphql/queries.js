@@ -9,6 +9,7 @@ export const getSong = /* GraphQL */ `
       composer
       album
       level
+      image
       createdAt
       updatedAt
     }
@@ -27,6 +28,7 @@ export const listSongs = /* GraphQL */ `
         composer
         album
         level
+        image
         createdAt
         updatedAt
       }

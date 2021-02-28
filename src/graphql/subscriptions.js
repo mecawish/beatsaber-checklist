@@ -9,6 +9,7 @@ export const onCreateSong = /* GraphQL */ `
       composer
       album
       level
+      image
       createdAt
       updatedAt
     }
@@ -22,6 +23,7 @@ export const onUpdateSong = /* GraphQL */ `
       composer
       album
       level
+      image
       createdAt
       updatedAt
     }
@@ -35,6 +37,7 @@ export const onDeleteSong = /* GraphQL */ `
       composer
       album
       level
+      image
       createdAt
       updatedAt
     }

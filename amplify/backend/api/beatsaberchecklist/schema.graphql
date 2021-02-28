@@ -4,4 +4,5 @@ type Song @model {
   composer: String
   album: String
   level: String
+  image: String
 }
